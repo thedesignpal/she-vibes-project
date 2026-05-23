@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoodSama — Set up your profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --orange:    #E8610A;
+            --orange-soft: #FDF6F1;
+            --charcoal:  #1A1A1A;
+            --cream:     #F0EDE8;
+            --sand:      #D9C9B0;
+            --green:     #4A7C59;
+            --green-bg:  #EEF4EB;
+            --green-border: #C5D9C0;
+            --amber:     #F5A623;
+            --amber-bg:  #FDF5E6;
+            --amber-border: #F0D9A0;
+            --off-white: #FAF9F7;
+            --mid-grey:  #888888;
+            --border:    #E8E4DE;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Sans', sans-serif;
+            padding: 24px;
+        }
+
+        .phone-frame {
+            width: 390px;
+            min-height: 860px;
+            background: var(--off-white);
+            border-radius: 48px;
+            border: 10px solid var(--charcoal);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 4px 0 0 var(--charcoal);
+        }
+
+        .status-bar {
+            padding: 14px 28px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--charcoal);
+            flex-shrink: 0;
+        }
+        .status-icons { display: flex; gap: 5px; align-items: center; }
+
+        .top-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 28px 0;
+            flex-shrink: 0;
+        }
+        .brand-block { display: flex; align-items: center; gap: 8px; }
+        .paw-mark { font-size: 16px; line-height: 1; }
+        .wordmark {
+            font-family: 'DM Serif Display', serif;
+            font-size: 17px;
+            color: var(--charcoal);
+            letter-spacing: -0.2px;
+        }
+        .wordmark-dot {
+            display: inline-block;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--orange);
+            margin-left: 2px;
+            vertical-align: middle;
+            position: relative;
+            top: -2px;
+        }
+        .step-counter {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: var(--mid-grey);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .progress-track {
+            display: flex;
+            gap: 6px;
+            padding: 14px 28px 0;
+            flex-shrink: 0;
+        }
+        .progress-segment {
+            flex: 1;
+            height: 3px;
+            background: var(--border);
+            border-radius: 2px;
+            transition: background 0.3s ease;
+        }
+        .progress-segment.active { background: var(--charcoal); }
+        .progress-segment.done   { background: var(--orange); }
+
+        .screen {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 22px 28px 32px;
+        }
+
+        .screen-view {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            animation: fadeUp 0.28s ease both;
+        }
+        .screen-view.active { display: flex; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--mid-grey);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            padding: 0;
+            align-self: flex-start;
+            margin-bottom: 22px;
+            transition: color 0.18s;
+        }
+        .back-link:hover { color: var(--charcoal); }
+
+        .screen-intro { margin-bottom: 22px; }
+
+        .screen-intro h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 30px;
+            color: var(--charcoal);
+            line-height: 1.18;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+        .screen-intro h2 .accent { color: var(--orange); }
+
+        .screen-intro p {
+            font-size: 14px;
+            color: var(--mid-grey);
+            line-height: 1.65;
+            max-width: 300px;
+        }
+
+        .form-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--mid-grey);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .text-input {
+            width: 100%;
+            height: 56px;
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            background: var(--off-white);
+            padding: 0 18px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            color: var(--charcoal);
+            transition: border-color 0.18s;
+        }
+        .text-input:focus { outline: none; border-color: var(--charcoal); }
+        .text-input::placeholder { color: var(--sand); }
+
+        .input-hint {
+            font-size: 12px;
+            color: var(--mid-grey);
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        /* Method tabs */
+        .method-tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--cream);
+            padding: 4px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+        .method-tab {
+            flex: 1;
+            padding: 9px 4px;
+            border-radius: 9px;
+            background: none;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--mid-grey);
+            cursor: pointer;
+            transition: all 0.18s;
+            letter-spacing: 0.2px;
+        }
+        .method-tab.active {
+            background: var(--off-white);
+            color: var(--charcoal);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .method-pane { display: none; animation: fadeUp 0.2s ease both; }
+        .method-pane.active { display: block; }
+
+        /* Auto-detect */
+        .auto-detect-block {
+            background: var(--off-white);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 22px 18px;
+            text-align: center;
+        }
+        .auto-icon-bubble {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            background: var(--orange-soft);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+        .auto-detect-block h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14.5px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 6px;
+        }
+        .auto-detect-block p {
+            font-size: 12.5px;
+            color: var(--mid-grey);
+            line-height: 1.55;
+            margin-bottom: 16px;
+            max-width: 260px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .detect-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--charcoal);
+            color: var(--off-white);
+            border: none;
+            border-radius: 10px;
+            padding: 10px 18px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.18s;
+        }
+        .detect-btn:hover { background: #2e2e2e; }
+        .detect-btn.detected {
+            background: var(--green-bg);
+            color: var(--green);
+            border: 1.5px solid var(--green-border);
+            padding: 8px 14px;
+        }
+
+        /* List */
+        .neighbourhood-list {
+            max-height: 280px;
+            overflow-y: auto;
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            background: var(--off-white);
+        }
+        .neighbourhood-list::-webkit-scrollbar { width: 4px; }
+        .neighbourhood-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+        .nb-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.15s;
+            background: none;
+            border-left: none;
+            border-right: none;
+            border-top: none;
+            width: 100%;
+            font-family: 'DM Sans', sans-serif;
+            text-align: left;
+        }
+        .nb-item:last-child { border-bottom: none; }
+        .nb-item:hover { background: var(--cream); }
+        .nb-item.selected { background: var(--orange-soft); }
+        .nb-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+        .nb-area {
+            font-size: 11.5px;
+            color: var(--mid-grey);
+            margin-top: 1px;
+        }
+        .nb-check {
+            color: var(--orange);
+            font-size: 14px;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.18s;
+        }
+        .nb-item.selected .nb-check { opacity: 1; }
+
+        /* Map */
+        .map-canvas {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            background: var(--cream);
+            overflow: hidden;
+            cursor: crosshair;
+            user-select: none;
+        }
+        .map-canvas::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(26,26,26,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(26,26,26,0.06) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .map-canvas::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 180px 80px at 60% 45%, rgba(74,124,89,0.12), transparent 70%),
+                radial-gradient(ellipse 100px 60px at 25% 70%, rgba(74,124,89,0.10), transparent 70%);
+            pointer-events: none;
+        }
+        .map-roads { position: absolute; inset: 0; pointer-events: none; }
+        .map-roads svg { width: 100%; height: 100%; }
+        .map-label {
+            position: absolute;
+            font-size: 9.5px;
+            font-weight: 600;
+            color: var(--mid-grey);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            pointer-events: none;
+            background: rgba(250,249,247,0.8);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .map-pin {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            display: none;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .map-pin.placed { display: block; animation: pinDrop 0.35s cubic-bezier(0.5, 1.5, 0.6, 1) both; }
+        @keyframes pinDrop {
+            0% { transform: translate(-50%, -120%); opacity: 0; }
+            100% { transform: translate(-50%, -50%); opacity: 1; }
+        }
+        .map-pin .pin-fuzzy {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(232,97,10,0.25) 0%, rgba(232,97,10,0.05) 60%, transparent 80%);
+            animation: fuzzyPulse 2s ease-in-out infinite;
+        }
+        @keyframes fuzzyPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.75; }
+        }
+        .map-pin .pin-dot {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: var(--orange);
+            border: 3px solid var(--off-white);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+        }
+
+        .map-hint {
+            text-align: center;
+            font-size: 11.5px;
+            color: var(--mid-grey);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Location confirmation */
+        .location-set {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            background: var(--green-bg);
+            border: 1.5px solid var(--green-border);
+            border-radius: 14px;
+            padding: 13px 15px;
+            margin-top: 14px;
+            opacity: 0;
+            transform: translateY(-6px);
+            transition: all 0.25s ease;
+            max-height: 0;
+            overflow: hidden;
+            padding-top: 0;
+            padding-bottom: 0;
+            border-width: 0;
+        }
+        .location-set.shown {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 80px;
+            padding-top: 13px;
+            padding-bottom: 13px;
+            border-width: 1.5px;
+        }
+        .location-set .loc-pin { font-size: 16px; flex-shrink: 0; }
+        .location-set .loc-text {
+            flex: 1;
+            font-size: 12.5px;
+            color: var(--green);
+            line-height: 1.5;
+        }
+        .location-set .loc-text strong {
+            display: block;
+            color: var(--charcoal);
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 1px;
+        }
+
+        .privacy-anchor-note {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-top: 14px;
+            padding: 0 4px;
+        }
+        .privacy-anchor-note span:first-child {
+            font-size: 13px;
+            flex-shrink: 0;
+            line-height: 1.5;
+        }
+        .privacy-anchor-note p {
+            font-size: 11.5px;
+            color: var(--mid-grey);
+            line-height: 1.55;
+        }
+
+        /* Anchor pill on radius screen */
+        .anchor-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--cream);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 5px 11px;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 18px;
+            max-width: fit-content;
+        }
+        .anchor-pill .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--orange);
+        }
+
+        /* Radius cards */
+        .radius-card {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            background: var(--off-white);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: border-color 0.18s, background 0.18s;
+            text-align: left;
+            font-family: 'DM Sans', sans-serif;
+            width: 100%;
+        }
+        .radius-card:hover { border-color: var(--sand); }
+        .radius-card.selected {
+            border-color: var(--charcoal);
+            background: var(--cream);
+        }
+
+        .radius-dial {
+            width: 44px; height: 44px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: background 0.18s;
+        }
+        .radius-card.selected .radius-dial { background: var(--orange-soft); }
+
+        .radius-dial .ring-outer,
+        .radius-dial .ring-mid,
+        .radius-dial .ring-inner {
+            position: absolute;
+            border-radius: 50%;
+            border: 1.5px solid var(--sand);
+        }
+        .radius-dial .ring-outer { width: 36px; height: 36px; opacity: 0.4; }
+        .radius-dial .ring-mid   { width: 24px; height: 24px; opacity: 0.7; }
+        .radius-dial .ring-inner {
+            width: 8px; height: 8px;
+            background: var(--charcoal);
+            border-color: var(--charcoal);
+        }
+        .radius-card.selected .radius-dial .ring-outer,
+        .radius-card.selected .radius-dial .ring-mid {
+            border-color: var(--orange);
+        }
+        .radius-card.selected .radius-dial .ring-inner {
+            background: var(--orange);
+            border-color: var(--orange);
+        }
+        .radius-card[data-radius="2"] .ring-outer  { display: none; }
+        .radius-card[data-radius="2"] .ring-mid    { display: none; }
+        .radius-card[data-radius="5"] .ring-outer  { display: none; }
+
+        .radius-content { flex: 1; }
+        .radius-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 2px;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .radius-distance {
+            font-size: 11.5px;
+            font-weight: 500;
+            color: var(--mid-grey);
+            letter-spacing: 0.3px;
+        }
+        .radius-card.selected .radius-distance { color: var(--orange); }
+        .radius-desc {
+            font-size: 12.5px;
+            color: var(--mid-grey);
+            line-height: 1.5;
+        }
+
+        .radius-check {
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border);
+            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.18s;
+        }
+        .radius-card.selected .radius-check {
+            border-color: var(--orange);
+            background: var(--orange);
+        }
+        .radius-card.selected .radius-check::after {
+            content: "✓";
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .update-note {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            background: var(--amber-bg);
+            border: 1.5px solid var(--amber-border);
+            border-radius: 14px;
+            padding: 13px 15px;
+            margin-top: 16px;
+        }
+        .update-note p {
+            font-size: 12px;
+            color: #8a6614;
+            line-height: 1.55;
+        }
+        .update-note strong { color: var(--charcoal); font-weight: 600; }
+
+        /* NGO */
+        .ngo-card {
+            background: var(--off-white);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: border-color 0.18s, background 0.18s;
+            text-align: left;
+            font-family: 'DM Sans', sans-serif;
+            width: 100%;
+            position: relative;
+        }
+        .ngo-card:hover { border-color: var(--sand); }
+        .ngo-card.selected {
+            border-color: var(--charcoal);
+            background: var(--cream);
+        }
+        .ngo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .ngo-avatar {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            background: var(--orange-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        .ngo-badge {
+            font-size: 9.5px;
+            font-weight: 600;
+            color: var(--green);
+            background: var(--green-bg);
+            border: 1px solid var(--green-border);
+            padding: 4px 8px;
+            border-radius: 20px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+        .ngo-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 19px;
+            color: var(--charcoal);
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+        .ngo-location {
+            font-size: 12px;
+            color: var(--mid-grey);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .ngo-meta {
+            display: flex;
+            gap: 16px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+        .ngo-meta-item { font-size: 11.5px; color: var(--mid-grey); }
+        .ngo-meta-item strong {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 1px;
+        }
+
+        .soon-list {
+            margin-top: 14px;
+            padding: 14px 16px;
+            background: var(--cream);
+            border-radius: 12px;
+        }
+        .soon-list-label {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: var(--mid-grey);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .soon-list ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .soon-list li {
+            font-size: 11.5px;
+            color: var(--mid-grey);
+            background: var(--off-white);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        /* Summary */
+        .summary-list {
+            background: var(--off-white);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 4px 18px;
+            margin-bottom: 22px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+        }
+        .summary-row:last-child { border-bottom: none; }
+        .summary-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--mid-grey);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .summary-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+        .summary-status {
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 5px 9px;
+            border-radius: 20px;
+            flex-shrink: 0;
+        }
+        .summary-status.confirmed {
+            color: var(--green);
+            background: var(--green-bg);
+            border: 1px solid var(--green-border);
+        }
+        .summary-status.pending {
+            color: #8a6614;
+            background: var(--amber-bg);
+            border: 1px solid var(--amber-border);
+        }
+
+        .ready-mark { text-align: center; margin-bottom: 18px; }
+        .ready-mark .check-bubble {
+            width: 56px; height: 56px;
+            background: var(--orange);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: white;
+            margin-bottom: 16px;
+            box-shadow: 0 0 0 8px var(--orange-soft);
+        }
+
+        .cta-btn {
+            width: 100%;
+            height: 56px;
+            background: var(--charcoal);
+            color: var(--off-white);
+            border: none;
+            border-radius: 14px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.18s, transform 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .cta-btn:hover  { background: #2e2e2e; }
+        .cta-btn:active { transform: scale(0.985); }
+        .cta-btn .arrow { font-size: 17px; transition: transform 0.2s; }
+        .cta-btn:hover .arrow { transform: translateX(3px); }
+        .cta-btn:disabled { background: var(--sand); cursor: not-allowed; color: #fff; }
+        .cta-btn:disabled:hover { background: var(--sand); }
+        .cta-btn:disabled .arrow { transform: none !important; }
+
+        .cta-btn.primary-orange { background: var(--orange); }
+        .cta-btn.primary-orange:hover { background: #d4570a; }
+
+        .small-link {
+            text-align: center;
+            font-size: 12.5px;
+            color: var(--mid-grey);
+            margin-top: 14px;
+        }
+        .small-link button {
+            color: var(--charcoal);
+            background: none;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 12.5px;
+            text-decoration: underline;
+            text-decoration-color: var(--border);
+            text-underline-offset: 2px;
+        }
+
+        .spacer { flex: 1; min-height: 12px; }
+        .home-link { text-decoration: none; display: block; }
+    </style>
+</head>
+<body>
+<div class="phone-frame">
+
+    <div class="status-bar">
+        <span>9:43</span>
+        <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+    </div>
+
+    <div class="top-header">
+        <div class="brand-block">
+            <span class="paw-mark">🐾</span>
+            <span class="wordmark">GoodSama<span class="wordmark-dot"></span></span>
+        </div>
+        <span class="step-counter" id="stepCounter">Step 1 of 4</span>
+    </div>
+
+    <div class="progress-track">
+        <div class="progress-segment active" id="seg1"></div>
+        <div class="progress-segment" id="seg2"></div>
+        <div class="progress-segment" id="seg3"></div>
+        <div class="progress-segment" id="seg4"></div>
+    </div>
+
+    <div class="screen">
+
+        <!-- STEP 1: NAME -->
+        <div class="screen-view active" id="step1">
+            <div class="screen-intro" style="margin-top: 8px;">
+                <h2>What should we<br>call <span class="accent">you?</span></h2>
+                <p>This is the name the NGO sees when you're nearby — first name is plenty.</p>
+            </div>
+
+            <label class="form-label">Your first name</label>
+            <input type="text" class="text-input" id="nameInput" placeholder="Priya" maxlength="24" oninput="checkName()">
+            <p class="input-hint">You can change this later in settings.</p>
+
+            <div class="spacer"></div>
+
+            <button class="cta-btn" id="nameContinue" onclick="goToStep(2)" disabled>
+                Continue <span class="arrow">→</span>
+            </button>
+        </div>
+
+        <!-- STEP 2: LOCATION ANCHOR -->
+        <div class="screen-view" id="step2">
+            <button class="back-link" onclick="goToStep(1)">← Back</button>
+            <div class="screen-intro">
+                <h2>Set your <span class="accent">centre.</span></h2>
+                <p>Where in Dehradun are you most of the time? This is the anchor we measure from.</p>
+            </div>
+
+            <div class="method-tabs">
+                <button class="method-tab active" data-method="auto" onclick="switchMethod('auto')">Use location</button>
+                <button class="method-tab" data-method="list" onclick="switchMethod('list')">Pick area</button>
+                <button class="method-tab" data-method="map" onclick="switchMethod('map')">Drop a pin</button>
+            </div>
+
+            <div class="method-pane active" id="paneAuto">
+                <div class="auto-detect-block">
+                    <div class="auto-icon-bubble">📡</div>
+                    <h4 id="autoTitle">Use your current location</h4>
+                    <p id="autoDesc">We'll fuzz it to the nearest neighbourhood — no exact coordinates stored.</p>
+                    <button class="detect-btn" id="detectBtn" onclick="runAutoDetect()">
+                        <span id="detectBtnText">📍 Detect my area</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="method-pane" id="paneList">
+                <div class="neighbourhood-list" id="neighbourhoodList"></div>
+            </div>
+
+            <div class="method-pane" id="paneMap">
+                <div class="map-canvas" id="mapCanvas" onclick="dropPin(event)">
+                    <div class="map-roads">
+                        <svg viewBox="0 0 390 280" preserveAspectRatio="none">
+                            <path d="M 0 140 Q 100 130, 200 145 T 390 130" stroke="#1A1A1A" stroke-width="2" stroke-opacity="0.25" fill="none"/>
+                            <path d="M 80 0 Q 90 80, 110 140 T 130 280" stroke="#1A1A1A" stroke-width="2" stroke-opacity="0.25" fill="none"/>
+                            <path d="M 260 0 Q 250 100, 270 180 T 290 280" stroke="#1A1A1A" stroke-width="1.5" stroke-opacity="0.18" fill="none"/>
+                            <path d="M 0 210 Q 80 220, 160 200 T 320 220 T 390 210" stroke="#4A7C59" stroke-width="3" stroke-opacity="0.35" fill="none"/>
+                        </svg>
+                    </div>
+                    <span class="map-label" style="top: 20px; left: 18px;">RAJPUR RD</span>
+                    <span class="map-label" style="top: 70px; right: 22px;">GHANTA GHAR</span>
+                    <span class="map-label" style="bottom: 38px; left: 30px;">INDRA NAGAR</span>
+                    <span class="map-label" style="bottom: 18px; right: 18px;">CLEMENT TOWN</span>
+
+                    <div class="map-pin" id="mapPin">
+                        <div class="pin-fuzzy"></div>
+                        <div class="pin-dot"></div>
+                    </div>
+                </div>
+                <p class="map-hint" id="mapHint">Tap anywhere to drop your anchor</p>
+            </div>
+
+            <div class="location-set" id="locationSet">
+                <span class="loc-pin">📍</span>
+                <div class="loc-text">
+                    <strong id="locName">—</strong>
+                    Your area is set. Stored as an approximate anchor only.
+                </div>
+            </div>
+
+            <div class="privacy-anchor-note">
+                <span>🔒</span>
+                <p>We store an approximate centre — never your live or exact location. You can update it anytime from home.</p>
+            </div>
+
+            <div class="spacer"></div>
+
+            <button class="cta-btn" id="locationContinue" onclick="goToStep(3)" disabled>
+                Continue <span class="arrow">→</span>
+            </button>
+        </div>
+
+        <!-- STEP 3: RADIUS -->
+        <div class="screen-view" id="step3">
+            <button class="back-link" onclick="goToStep(2)">← Back</button>
+            <div class="screen-intro">
+                <h2>How far can you<br><span class="accent">go to help?</span></h2>
+                <p>Distance is measured from your anchor, not your live location.</p>
+            </div>
+
+            <div class="anchor-pill" id="anchorPill">
+                <span class="dot"></span>
+                <span>From <span id="anchorPillName">your area</span></span>
+            </div>
+
+            <button class="radius-card" data-radius="2" onclick="selectRadius(this, 'nearby', '2 km')">
+                <div class="radius-dial">
+                    <div class="ring-outer"></div>
+                    <div class="ring-mid"></div>
+                    <div class="ring-inner"></div>
+                </div>
+                <div class="radius-content">
+                    <div class="radius-name">Nearby <span class="radius-distance">· up to 2 km</span></div>
+                    <div class="radius-desc">On foot or a quick auto ride.</div>
+                </div>
+                <div class="radius-check"></div>
+            </button>
+
+            <button class="radius-card" data-radius="5" onclick="selectRadius(this, 'stretch', '5 km')">
+                <div class="radius-dial">
+                    <div class="ring-outer"></div>
+                    <div class="ring-mid"></div>
+                    <div class="ring-inner"></div>
+                </div>
+                <div class="radius-content">
+                    <div class="radius-name">A stretch <span class="radius-distance">· up to 5 km</span></div>
+                    <div class="radius-desc">Two-wheeler or a short cab.</div>
+                </div>
+                <div class="radius-check"></div>
+            </button>
+
+            <button class="radius-card" data-radius="10" onclick="selectRadius(this, 'across-town', '10 km')">
+                <div class="radius-dial">
+                    <div class="ring-outer"></div>
+                    <div class="ring-mid"></div>
+                    <div class="ring-inner"></div>
+                </div>
+                <div class="radius-content">
+                    <div class="radius-name">Across town <span class="radius-distance">· up to 10 km</span></div>
+                    <div class="radius-desc">Wherever needed — you'll travel for it.</div>
+                </div>
+                <div class="radius-check"></div>
+            </button>
+
+            <div class="update-note">
+                <span style="font-size:13px;flex-shrink:0;margin-top:1px">🧭</span>
+                <p>Moved for the day? Just <strong>update your centre</strong> from home — say, from Indra Nagar to Ghanta Ghar — and the radius re-anchors.</p>
+            </div>
+
+            <div class="spacer"></div>
+
+            <button class="cta-btn" id="radiusContinue" onclick="goToStep(4)" disabled>
+                Continue <span class="arrow">→</span>
+            </button>
+        </div>
+
+        <!-- STEP 4: NGO LINK -->
+        <div class="screen-view" id="step4">
+            <button class="back-link" onclick="goToStep(3)">← Back</button>
+            <div class="screen-intro">
+                <h2>Link with your<br><span class="accent">local NGO.</span></h2>
+                <p>Reports only reach helpers linked to the same NGO. One available in Dehradun for now.</p>
+            </div>
+
+            <button class="ngo-card" id="ngoCard" onclick="selectNGO(this)">
+                <div class="ngo-header">
+                    <div class="ngo-avatar">🐕</div>
+                    <span class="ngo-badge">Verified</span>
+                </div>
+                <div class="ngo-name">Dehradun Animal Rescue</div>
+                <div class="ngo-location">📍 Rajpur Road · Dehradun</div>
+                <div class="ngo-meta">
+                    <div class="ngo-meta-item"><strong>6 yrs</strong>active</div>
+                    <div class="ngo-meta-item"><strong>2.4k+</strong>rescues</div>
+                    <div class="ngo-meta-item"><strong>~30 min</strong>response</div>
+                </div>
+            </button>
+
+            <div class="soon-list">
+                <div class="soon-list-label">Coming in later phases</div>
+                <ul>
+                    <li>Mussoorie</li>
+                    <li>Rishikesh</li>
+                    <li>Haridwar</li>
+                    <li>Delhi NCR</li>
+                </ul>
+            </div>
+
+            <div class="spacer"></div>
+
+            <button class="cta-btn" id="ngoContinue" onclick="goToStep(5)" disabled>
+                Send link request <span class="arrow">→</span>
+            </button>
+        </div>
+
+        <!-- STEP 5: ALL SET -->
+        <div class="screen-view" id="step5">
+            <div class="ready-mark" style="margin-top: 10px;">
+                <div class="check-bubble">✓</div>
+            </div>
+            <div class="screen-intro" style="text-align: center; margin-bottom: 22px;">
+                <h2 style="text-align: center;">You're <span class="accent">ready.</span></h2>
+                <p style="margin: 0 auto;">Here's what we've got. The NGO will confirm your link shortly — we'll let you know.</p>
+            </div>
+
+            <div class="summary-list">
+                <div class="summary-row">
+                    <div>
+                        <div class="summary-label">Your name</div>
+                        <div class="summary-value" id="sumName">—</div>
+                    </div>
+                    <span class="summary-status confirmed">Saved</span>
+                </div>
+                <div class="summary-row">
+                    <div>
+                        <div class="summary-label">Your centre</div>
+                        <div class="summary-value" id="sumLocation">—</div>
+                    </div>
+                    <span class="summary-status confirmed">Saved</span>
+                </div>
+                <div class="summary-row">
+                    <div>
+                        <div class="summary-label">Response radius</div>
+                        <div class="summary-value" id="sumRadius">—</div>
+                    </div>
+                    <span class="summary-status confirmed">Saved</span>
+                </div>
+                <div class="summary-row">
+                    <div>
+                        <div class="summary-label">NGO link</div>
+                        <div class="summary-value">Dehradun Animal Rescue</div>
+                    </div>
+                    <span class="summary-status pending">Pending</span>
+                </div>
+            </div>
+
+            <div class="spacer"></div>
+
+            <a href="home.html" class="home-link">
+                <button class="cta-btn primary-orange">
+                    Go to home <span class="arrow">→</span>
+                </button>
+            </a>
+            <p class="small-link">Need to fix something? <button onclick="goToStep(1)">Edit setup</button></p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const TOTAL_STEPS = 4;
+
+    const userData = {
+        name: '',
+        locationName: '',
+        locationMethod: '',
+        radiusKey: '',
+        radiusLabel: ''
+    };
+
+    const neighbourhoods = [
+        { name: 'Indra Nagar Colony', area: 'Central · near GMS Road' },
+        { name: 'Ghanta Ghar',         area: 'Clock Tower · city centre' },
+        { name: 'Rajpur Road',         area: 'North · uphill stretch' },
+        { name: 'Patel Nagar',         area: 'West · near Railway Station' },
+        { name: 'Dalanwala',           area: 'East · near Karanpur' },
+        { name: 'Sahastradhara Road',  area: 'East · IT Park side' },
+        { name: 'GMS Road',            area: 'West · Ballupur to Kaulagarh' },
+        { name: 'Vasant Vihar',        area: 'North-west · near IIP' },
+        { name: 'Clement Town',        area: 'South · near ONGC' },
+        { name: 'Race Course',         area: 'Central south' }
+    ];
+
+    function renderNeighbourhoods() {
+        const list = document.getElementById('neighbourhoodList');
+        list.innerHTML = neighbourhoods.map(n => `
+            <button class="nb-item" onclick="selectNeighbourhood(this, '${n.name}')">
+                <div>
+                    <div class="nb-name">${n.name}</div>
+                    <div class="nb-area">${n.area}</div>
+                </div>
+                <span class="nb-check">✓</span>
+            </button>
+        `).join('');
+    }
+    renderNeighbourhoods();
+
+    function showStep(n) {
+        document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
+        document.getElementById('step' + n).classList.add('active');
+
+        const counter = document.getElementById('stepCounter');
+        const segs = [
+            document.getElementById('seg1'),
+            document.getElementById('seg2'),
+            document.getElementById('seg3'),
+            document.getElementById('seg4')
+        ];
+        segs.forEach(s => s.classList.remove('active', 'done'));
+
+        if (n === 5) {
+            counter.textContent = 'All set';
+            segs.forEach(s => s.classList.add('done'));
+        } else {
+            counter.textContent = 'Step ' + n + ' of ' + TOTAL_STEPS;
+            for (let i = 0; i < TOTAL_STEPS; i++) {
+                if (i + 1 < n) segs[i].classList.add('done');
+                else if (i + 1 === n) segs[i].classList.add('active');
+            }
+        }
+    }
+
+    function goToStep(n) {
+        if (n === 3) {
+            document.getElementById('anchorPillName').textContent = userData.locationName || 'your area';
+        }
+        if (n === 5) {
+            document.getElementById('sumName').textContent = userData.name || '—';
+            document.getElementById('sumLocation').textContent = userData.locationName || '—';
+            document.getElementById('sumRadius').textContent = userData.radiusLabel || '—';
+        }
+        showStep(n);
+    }
+
+    function checkName() {
+        const v = document.getElementById('nameInput').value.trim();
+        userData.name = v;
+        document.getElementById('nameContinue').disabled = v.length < 2;
+    }
+
+    function switchMethod(method) {
+        document.querySelectorAll('.method-tab').forEach(t => t.classList.remove('active'));
+        document.querySelector(`.method-tab[data-method="${method}"]`).classList.add('active');
+        document.querySelectorAll('.method-pane').forEach(p => p.classList.remove('active'));
+        const paneId = 'pane' + method.charAt(0).toUpperCase() + method.slice(1);
+        document.getElementById(paneId).classList.add('active');
+    }
+
+    function setLocation(name, method) {
+        userData.locationName = name;
+        userData.locationMethod = method;
+        document.getElementById('locName').textContent = name;
+        document.getElementById('locationSet').classList.add('shown');
+        document.getElementById('locationContinue').disabled = false;
+    }
+
+    function runAutoDetect() {
+        const btn = document.getElementById('detectBtn');
+        const txt = document.getElementById('detectBtnText');
+        const title = document.getElementById('autoTitle');
+        const desc = document.getElementById('autoDesc');
+
+        txt.textContent = '📡 Finding your area…';
+        btn.disabled = true;
+
+        setTimeout(() => {
+            const detected = 'Indra Nagar Colony';
+            title.textContent = 'Found your area';
+            desc.textContent = 'Anchored to ' + detected + '. Switch to "Pick area" or "Drop a pin" if this looks off.';
+            btn.classList.add('detected');
+            txt.textContent = '✓ ' + detected;
+            btn.disabled = false;
+            setLocation(detected, 'auto');
+        }, 1100);
+    }
+
+    function selectNeighbourhood(el, name) {
+        document.querySelectorAll('.nb-item').forEach(i => i.classList.remove('selected'));
+        el.classList.add('selected');
+        setLocation(name, 'list');
+    }
+
+    function dropPin(event) {
+        const canvas = document.getElementById('mapCanvas');
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const pin = document.getElementById('mapPin');
+        pin.style.left = x + 'px';
+        pin.style.top = y + 'px';
+        pin.classList.remove('placed');
+        void pin.offsetWidth;
+        pin.classList.add('placed');
+
+        const relX = x / rect.width;
+        const relY = y / rect.height;
+        let area;
+        if (relY < 0.4 && relX < 0.5) area = 'Rajpur Road area';
+        else if (relY < 0.4 && relX >= 0.5) area = 'Ghanta Ghar area';
+        else if (relY >= 0.4 && relY < 0.75 && relX < 0.5) area = 'Indra Nagar area';
+        else if (relY >= 0.4 && relY < 0.75) area = 'Dalanwala area';
+        else if (relX < 0.5) area = 'GMS Road area';
+        else area = 'Clement Town area';
+
+        document.getElementById('mapHint').textContent = 'Anchored to ' + area + ' — tap again to move';
+        setLocation(area, 'map');
+    }
+
+    function selectRadius(card, key, label) {
+        document.querySelectorAll('.radius-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        userData.radiusKey = key;
+        userData.radiusLabel = label;
+        document.getElementById('radiusContinue').disabled = false;
+    }
+
+    function selectNGO(card) {
+        card.classList.toggle('selected');
+        document.getElementById('ngoContinue').disabled = !card.classList.contains('selected');
+    }
+</script>
+</body>
+</html>

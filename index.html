@@ -3,18 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoodSama — Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <title>GoodSama — Sign in</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --orange:    #E8610A;
+            --charcoal:  #1A1A1A;
+            --cream:     #F0EDE8;
+            --sand:      #D9C9B0;
+            --green:     #4A7C59;
+            --green-bg:  #EEF4EB;
+            --green-border: #C5D9C0;
+            --off-white: #FAF9F7;
+            --mid-grey:  #888888;
+            --border:    #E8E4DE;
         }
 
         body {
             min-height: 100vh;
-            background: #f0ede8;
+            background: var(--cream);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -22,468 +31,502 @@
             padding: 24px;
         }
 
+        /* ── PHONE FRAME ── */
         .phone-frame {
             width: 390px;
-            min-height: 780px;
-            background: #fff;
+            min-height: 820px;
+            background: var(--off-white);
             border-radius: 48px;
-            box-shadow:
-                0 0 0 10px #1a1a1a,
-                0 40px 80px rgba(0,0,0,0.25);
+            border: 10px solid var(--charcoal);
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            position: relative;
+            box-shadow: 4px 4px 0 0 var(--charcoal);
         }
 
+        /* ── STATUS BAR ── */
         .status-bar {
-            background: #fff;
-            padding: 16px 28px 8px;
+            padding: 14px 28px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12px;
-            font-weight: 600;
-            color: #1a1a1a;
-        }
-
-        .status-icons {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
-
-        .status-icons span {
             font-size: 11px;
+            font-weight: 600;
+            color: var(--charcoal);
+            flex-shrink: 0;
+        }
+        .status-icons { display: flex; gap: 5px; align-items: center; }
+
+        /* ── TOP HEADER — calm, small, always present ── */
+        .top-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 28px 0;
+            flex-shrink: 0;
+        }
+        .paw-mark { font-size: 16px; line-height: 1; }
+        .wordmark {
+            font-family: 'DM Serif Display', serif;
+            font-size: 17px;
+            color: var(--charcoal);
+            letter-spacing: -0.2px;
+        }
+        /* small orange dot — brand accent, not a wall */
+        .wordmark-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--orange);
+            margin-left: 2px;
+            vertical-align: middle;
+            position: relative;
+            top: -2px;
         }
 
+        /* ── SCREEN WRAPPER ── */
         .screen {
             flex: 1;
             display: flex;
             flex-direction: column;
-            padding: 32px 28px 40px;
+            padding: 24px 28px 36px;
         }
 
+        .screen-view {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            animation: fadeUp 0.25s ease both;
+        }
+        .screen-view.active { display: flex; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── BACK LINK ── */
         .back-link {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             text-decoration: none;
-            color: #888;
-            font-size: 13px;
-            margin-bottom: 40px;
-            transition: color 0.2s;
+            color: var(--mid-grey);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            padding: 0;
+            align-self: flex-start;
+            margin-bottom: 32px;
+            transition: color 0.18s;
         }
+        .back-link:hover { color: var(--charcoal); }
 
-        .back-link:hover {
-            color: #333;
-        }
+        /* ── SCREEN INTRO ── */
+        .screen-intro { margin-bottom: 32px; }
 
-        .back-arrow {
-            font-size: 16px;
-        }
-
-        .brand {
-            margin-bottom: 40px;
-        }
-
-        .paw {
-            font-size: 36px;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .brand h1 {
+        .screen-intro h2 {
             font-family: 'DM Serif Display', serif;
-            font-size: 28px;
-            color: #1a1a1a;
-            line-height: 1.2;
-            margin-bottom: 8px;
+            font-size: 32px;
+            color: var(--charcoal);
+            line-height: 1.18;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
         }
+        /* The orange word — a single warm word in the headline */
+        .screen-intro h2 .accent { color: var(--orange); }
 
-        .brand p {
+        .screen-intro p {
             font-size: 14px;
-            color: #888;
-            line-height: 1.6;
+            color: var(--mid-grey);
+            line-height: 1.65;
+            max-width: 280px;
         }
 
-        .form-section {
-            flex: 1;
-        }
-
-        .form-section h2 {
-            font-size: 13px;
+        /* ── FORM LABEL ── */
+        .form-label {
+            font-size: 11px;
             font-weight: 600;
-            text-transform: uppercase;
+            color: var(--mid-grey);
             letter-spacing: 1px;
-            color: #bbb;
-            margin-bottom: 24px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 10px;
         }
 
-        .input-group {
-            margin-bottom: 16px;
-            position: relative;
-        }
-
-        .input-row {
-            display: flex;
-            gap: 10px;
-        }
+        /* ── INPUT GROUP ── */
+        .input-group { margin-bottom: 14px; }
+        .input-row   { display: flex; gap: 10px; }
 
         .country-code {
             width: 72px;
             height: 56px;
-            border: 2px solid #e8e4de;
+            border: 1.5px solid var(--border);
             border-radius: 14px;
-            background: #faf9f7;
+            background: var(--off-white);
             font-family: 'DM Sans', sans-serif;
             font-size: 15px;
-            font-weight: 500;
-            color: #1a1a1a;
+            font-weight: 600;
+            color: var(--charcoal);
             text-align: center;
             cursor: pointer;
-            transition: border-color 0.2s;
+            transition: border-color 0.18s;
             flex-shrink: 0;
         }
-
-        .country-code:focus {
-            outline: none;
-            border-color: #5c6bc0;
-        }
+        .country-code:focus { outline: none; border-color: var(--charcoal); }
 
         .phone-input {
             flex: 1;
             height: 56px;
-            border: 2px solid #e8e4de;
+            border: 1.5px solid var(--border);
             border-radius: 14px;
-            background: #faf9f7;
+            background: var(--off-white);
             padding: 0 18px;
             font-family: 'DM Sans', sans-serif;
             font-size: 18px;
-            font-weight: 400;
-            color: #1a1a1a;
+            color: var(--charcoal);
             letter-spacing: 2px;
-            transition: border-color 0.2s, background 0.2s;
+            transition: border-color 0.18s;
         }
-
-        .phone-input:focus {
-            outline: none;
-            border-color: #5c6bc0;
-            background: #fff;
-        }
-
-        .phone-input::placeholder {
-            letter-spacing: 1px;
-            font-size: 15px;
-            color: #ccc;
-        }
+        .phone-input:focus { outline: none; border-color: var(--charcoal); }
+        .phone-input::placeholder { letter-spacing: 0.5px; font-size: 15px; color: var(--sand); }
 
         .input-hint {
             font-size: 12px;
-            color: #aaa;
+            color: var(--mid-grey);
             margin-top: 8px;
-            padding-left: 4px;
+            line-height: 1.5;
         }
 
-        .divider {
-            height: 1px;
-            background: #f0ede8;
-            margin: 28px 0;
-        }
-
+        /* ── PRIVACY NOTE ── */
         .privacy-note {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             align-items: flex-start;
-            background: #f7f9f4;
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 32px;
-            border: 1px solid #e2ead9;
+            background: var(--green-bg);
+            border: 1.5px solid var(--green-border);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin: 20px 0 24px;
         }
-
-        .privacy-icon {
-            font-size: 16px;
-            flex-shrink: 0;
-            margin-top: 1px;
-        }
-
         .privacy-note p {
-            font-size: 12px;
-            color: #6a7c5a;
+            font-size: 12.5px;
+            color: var(--green);
             line-height: 1.6;
         }
 
+        /* ── BUTTONS ── */
         .cta-btn {
             width: 100%;
             height: 56px;
-            background: #1a1a1a;
-            color: #fff;
+            background: var(--charcoal);
+            color: var(--off-white);
             border: none;
             border-radius: 14px;
             font-family: 'DM Sans', sans-serif;
             font-size: 15px;
             font-weight: 500;
             cursor: pointer;
-            letter-spacing: 0.3px;
-            transition: background 0.2s, transform 0.1s;
+            transition: background 0.18s, transform 0.1s;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
         }
+        .cta-btn:hover  { background: #2e2e2e; }
+        .cta-btn:active { transform: scale(0.985); }
+        .cta-btn .arrow { font-size: 17px; transition: transform 0.2s; }
+        .cta-btn:hover .arrow { transform: translateX(3px); }
+        .cta-btn:disabled { background: var(--sand); cursor: not-allowed; color: #fff; }
+        .cta-btn:disabled:hover { background: var(--sand); }
+        .cta-btn:disabled .arrow { transform: none !important; }
 
-        .cta-btn:hover {
-            background: #333;
+        /* ── TERMS & SMALL LINKS ── */
+        .terms {
+            text-align: center;
+            font-size: 11px;
+            color: #B8AE9E;
+            margin-top: 16px;
+            line-height: 1.7;
+        }
+        .terms a {
+            color: var(--mid-grey);
+            text-decoration: underline;
+            text-decoration-color: var(--border);
+            text-underline-offset: 2px;
+        }
+        .small-link {
+            text-align: center;
+            font-size: 12.5px;
+            color: var(--mid-grey);
+            margin-top: 14px;
+        }
+        .small-link button {
+            color: var(--charcoal);
+            background: none;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 12.5px;
+            text-decoration: underline;
+            text-decoration-color: var(--border);
+            text-underline-offset: 2px;
         }
 
-        .cta-btn:active {
-            transform: scale(0.98);
-        }
-
-        .cta-btn .arrow {
-            font-size: 18px;
-            transition: transform 0.2s;
-        }
-
-        .cta-btn:hover .arrow {
-            transform: translateX(4px);
-        }
-
-        .otp-screen {
-            display: none;
-        }
-
-        .otp-screen.active {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .phone-screen.hidden {
-            display: none;
-        }
-
-        .otp-title {
-            font-family: 'DM Serif Display', serif;
-            font-size: 26px;
-            color: #1a1a1a;
-            margin-bottom: 8px;
-        }
-
-        .otp-sub {
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 36px;
-            line-height: 1.6;
-        }
-
-        .otp-sub span {
-            color: #1a1a1a;
-            font-weight: 500;
-        }
-
-        .otp-inputs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 32px;
-        }
-
+        /* ── OTP ── */
+        .otp-inputs { display: flex; gap: 10px; margin-bottom: 20px; }
         .otp-box {
             flex: 1;
-            height: 60px;
-            border: 2px solid #e8e4de;
+            height: 64px;
+            border: 1.5px solid var(--border);
             border-radius: 14px;
-            background: #faf9f7;
+            background: var(--off-white);
             text-align: center;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 24px;
-            font-weight: 500;
-            color: #1a1a1a;
-            transition: border-color 0.2s, background 0.2s;
+            font-family: 'DM Serif Display', serif;
+            font-size: 28px;
+            color: var(--charcoal);
+            transition: all 0.18s;
         }
-
-        .otp-box:focus {
-            outline: none;
-            border-color: #5c6bc0;
-            background: #fff;
-        }
-
+        .otp-box:focus { outline: none; border-color: var(--charcoal); }
         .otp-box.filled {
-            border-color: #5c6bc0;
-            background: #f0f2ff;
+            border-color: var(--orange);
+            color: var(--orange);
+            background: #FDF6F1;
         }
 
         .resend-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
         }
-
-        .resend-text {
-            font-size: 13px;
-            color: #aaa;
-        }
-
+        .resend-text { font-size: 13px; color: var(--mid-grey); }
         .resend-btn {
-            font-size: 13px;
-            color: #5c6bc0;
-            background: none;
-            border: none;
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 500;
+            font-size: 13px; color: var(--charcoal); background: none; border: none;
+            font-family: 'DM Sans', sans-serif; font-weight: 600; cursor: pointer;
+            text-decoration: underline; text-decoration-color: var(--border);
+        }
+        .timer { font-size: 13px; color: var(--mid-grey); }
+
+        /* ── ROLE CARDS ── */
+        .role-card {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            background: var(--off-white);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 18px 16px;
+            margin-bottom: 12px;
             cursor: pointer;
+            transition: border-color 0.18s, background 0.18s;
+            text-align: left;
+            font-family: 'DM Sans', sans-serif;
+            width: 100%;
         }
-
-        .timer {
-            font-size: 13px;
-            color: #bbb;
-            font-weight: 500;
+        .role-card:hover { border-color: var(--sand); }
+        .role-card.selected {
+            border-color: var(--charcoal);
+            background: var(--cream);
         }
-
-        .home-link {
-            text-decoration: none;
+        .role-emoji { font-size: 26px; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+        .role-content { flex: 1; }
+        .role-name { font-size: 14px; font-weight: 600; color: var(--charcoal); margin-bottom: 4px; }
+        .role-desc { font-size: 12.5px; color: var(--mid-grey); line-height: 1.55; }
+        .role-check {
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border);
+            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            margin-top: 3px;
+            transition: all 0.18s;
         }
-
-        .terms {
-            text-align: center;
+        .role-card.selected .role-check {
+            border-color: var(--orange);
+            background: var(--orange);
+        }
+        .role-card.selected .role-check::after {
+            content: "✓";
+            color: white;
             font-size: 11px;
-            color: #ccc;
-            margin-top: 20px;
-            line-height: 1.7;
+            font-weight: 700;
         }
 
-        .terms a {
-            color: #aaa;
-        }
+        .home-link { text-decoration: none; display: block; margin-top: 20px; }
     </style>
 </head>
 <body>
-    <div class="phone-frame">
-        <div class="status-bar">
-            <span>9:41</span>
-            <div class="status-icons">
-                <span>●●●</span>
-                <span>WiFi</span>
-                <span>🔋</span>
-            </div>
-        </div>
+<div class="phone-frame">
 
-        <div class="screen">
-
-            <a href="index.html" class="back-link">
-                <span class="back-arrow">←</span> Back
-            </a>
-
-            <div class="phone-screen" id="phoneScreen">
-                <div class="brand">
-                    <span class="paw">🐾</span>
-                    <h1>Welcome to GoodSama</h1>
-                    <p>Enter your phone number to join a network of animal welfare helpers near you.</p>
-                </div>
-
-                <div class="form-section">
-                    <h2>Your number</h2>
-
-                    <div class="input-group">
-                        <div class="input-row">
-                            <input type="text" class="country-code" value="+91" maxlength="4">
-                            <input type="tel" class="phone-input" id="phoneInput" placeholder="98765 43210" maxlength="10">
-                        </div>
-                        <p class="input-hint">We'll send a one-time code to verify</p>
-                    </div>
-
-                    <div class="divider"></div>
-
-                    <div class="privacy-note">
-                        <span class="privacy-icon">🔒</span>
-                        <p>Your number is never shared with other users. It's only used to verify your identity and send you nearby rescue alerts.</p>
-                    </div>
-
-                    <button class="cta-btn" onclick="showOTP()">
-                        Send OTP <span class="arrow">→</span>
-                    </button>
-
-                    <p class="terms">By continuing you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a></p>
-                </div>
-            </div>
-
-            <div class="otp-screen" id="otpScreen">
-                <div class="brand">
-                    <span class="paw">✉️</span>
-                    <h1 class="otp-title">Check your messages</h1>
-                    <p class="otp-sub">We sent a 4-digit code to <span id="displayNumber">+91 98765 43210</span></p>
-                </div>
-
-                <div class="otp-inputs">
-                    <input type="text" class="otp-box" maxlength="1" id="otp1" oninput="moveNext(this, 'otp2')">
-                    <input type="text" class="otp-box" maxlength="1" id="otp2" oninput="moveNext(this, 'otp3')">
-                    <input type="text" class="otp-box" maxlength="1" id="otp3" oninput="moveNext(this, 'otp4')">
-                    <input type="text" class="otp-box" maxlength="1" id="otp4" oninput="checkComplete()">
-                </div>
-
-                <div class="resend-row">
-                    <span class="resend-text">Didn't receive it?</span>
-                    <span class="timer" id="timer">Resend in 0:30</span>
-                </div>
-
-                <a href="setup.html" class="home-link">
-                    <button class="cta-btn" id="verifyBtn">
-                        Verify & continue <span class="arrow">→</span>
-                    </button>
-                </a>
-
-                <p class="terms">Wrong number? <a href="#" onclick="showPhone()">Go back</a></p>
-            </div>
-
-        </div>
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+        <span>9:41</span>
+        <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
     </div>
 
-    <script>
-        function showOTP() {
-            const phone = document.getElementById('phoneInput').value;
-            if (phone.length < 10) {
-                document.getElementById('phoneInput').style.borderColor = '#e57373';
-                document.getElementById('phoneInput').placeholder = 'Enter 10 digits';
-                return;
+    <!-- PERSISTENT TOP HEADER -->
+    <div class="top-header">
+        <span class="paw-mark">🐾</span>
+        <span class="wordmark">GoodSama<span class="wordmark-dot"></span></span>
+    </div>
+
+    <!-- SCREENS -->
+    <div class="screen">
+
+        <!-- ── PHONE ── -->
+        <div class="screen-view active" id="phoneScreen">
+            <div class="screen-intro">
+                <h2>Hello<br><span class="accent">there.</span></h2>
+                <p>A few taps from joining a quiet network of people who care.</p>
+            </div>
+
+            <label class="form-label">Your phone number</label>
+            <div class="input-group">
+                <div class="input-row">
+                    <input type="text" class="country-code" value="+91" maxlength="4">
+                    <input type="tel" class="phone-input" id="phoneInput" placeholder="98765 43210" maxlength="10">
+                </div>
+                <p class="input-hint">We'll send a quick code so we know it's really you.</p>
+            </div>
+
+            <div class="privacy-note">
+                <span style="font-size:14px;flex-shrink:0;margin-top:1px">🌿</span>
+                <p>Your number stays with us. Never shared with other helpers or shown publicly — promise.</p>
+            </div>
+
+            <button class="cta-btn" onclick="goToOTP()">
+                Send me a code <span class="arrow">→</span>
+            </button>
+            <p class="terms">By continuing you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a></p>
+        </div>
+
+        <!-- ── OTP ── -->
+        <div class="screen-view" id="otpScreen">
+            <button class="back-link" onclick="goToPhone()">← Back</button>
+            <div class="screen-intro">
+                <h2>Check your<br><span class="accent">messages.</span></h2>
+                <p>We sent a 4-digit code to <strong id="displayNumber" style="color:var(--charcoal);font-weight:500">+91 98765 43210</strong>. Pop it in below.</p>
+            </div>
+
+            <div class="otp-inputs">
+                <input type="text" class="otp-box" maxlength="1" id="otp1" oninput="moveNext(this,'otp2')">
+                <input type="text" class="otp-box" maxlength="1" id="otp2" oninput="moveNext(this,'otp3')">
+                <input type="text" class="otp-box" maxlength="1" id="otp3" oninput="moveNext(this,'otp4')">
+                <input type="text" class="otp-box" maxlength="1" id="otp4" oninput="checkComplete()">
+            </div>
+
+            <div class="resend-row">
+                <span class="resend-text">Didn't get it?</span>
+                <span class="timer" id="timer">Resend in 0:30</span>
+            </div>
+
+            <button class="cta-btn" onclick="goToRole()">
+                Continue <span class="arrow">→</span>
+            </button>
+            <p class="small-link">Wrong number? <button onclick="goToPhone()">Change it</button></p>
+        </div>
+
+        <!-- ── ROLE ── -->
+        <div class="screen-view" id="roleScreen">
+            <button class="back-link" onclick="goToOTP()">← Back</button>
+            <div class="screen-intro">
+                <h2>One last<br><span class="accent">thing —</span></h2>
+                <p>How can you help? Pick the role that sounds most like you. Change it anytime.</p>
+            </div>
+
+            <button class="role-card" onclick="selectRole(this,'samaritan')">
+                <span class="role-emoji">💛</span>
+                <div class="role-content">
+                    <div class="role-name">I'm here to help nearby</div>
+                    <div class="role-desc">You love animals and want to be reachable when one needs a hand in your area.</div>
+                </div>
+                <div class="role-check"></div>
+            </button>
+
+            <button class="role-card" onclick="selectRole(this,'ngo')">
+                <span class="role-emoji">🏡</span>
+                <div class="role-content">
+                    <div class="role-name">I'm with an NGO or shelter</div>
+                    <div class="role-desc">You run or work at an animal welfare organisation and want to connect with helpers.</div>
+                </div>
+                <div class="role-check"></div>
+            </button>
+
+            <a href="setup.html" class="home-link">
+                <button class="cta-btn" id="continueBtn" disabled>
+                    Continue <span class="arrow">→</span>
+                </button>
+            </a>
+            <p class="small-link">Not sure yet? <button onclick="selectRole(document.querySelectorAll('.role-card')[0],'samaritan')">Start as a helper</button></p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function showScreen(id) {
+        document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
+        const el = document.getElementById(id);
+        el.classList.add('active');
+        // re-trigger animation
+        el.style.animation = 'none';
+        el.offsetHeight;
+        el.style.animation = '';
+    }
+
+    function goToOTP() {
+        const phone = document.getElementById('phoneInput').value;
+        if (phone.length < 10) {
+            const input = document.getElementById('phoneInput');
+            input.style.borderColor = '#E8610A';
+            input.placeholder = '10-digit number please';
+            input.value = '';
+            return;
+        }
+        document.getElementById('displayNumber').textContent = '+91 ' + phone;
+        showScreen('otpScreen');
+        setTimeout(() => document.getElementById('otp1').focus(), 100);
+        startTimer();
+    }
+
+    function goToPhone() { showScreen('phoneScreen'); }
+    function goToRole()  { showScreen('roleScreen'); }
+
+    function moveNext(current, nextId) {
+        current.classList.toggle('filled', current.value.length > 0);
+        if (current.value.length === 1 && nextId) document.getElementById(nextId).focus();
+    }
+
+    function checkComplete() {
+        document.querySelectorAll('.otp-box').forEach(b => b.classList.toggle('filled', b.value.length > 0));
+    }
+
+    function selectRole(card, role) {
+        document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        document.getElementById('continueBtn').disabled = false;
+    }
+
+    function startTimer() {
+        let seconds = 30;
+        const el = document.getElementById('timer');
+        const interval = setInterval(() => {
+            seconds--;
+            if (seconds <= 0) {
+                clearInterval(interval);
+                el.innerHTML = '<button class="resend-btn" onclick="startTimer()">Send again</button>';
+            } else {
+                el.textContent = 'Resend in 0:' + String(seconds).padStart(2, '0');
             }
-            document.getElementById('displayNumber').textContent = '+91 ' + phone;
-            document.getElementById('phoneScreen').classList.add('hidden');
-            document.getElementById('otpScreen').classList.add('active');
-            document.getElementById('otp1').focus();
-            startTimer();
-        }
-
-        function showPhone() {
-            document.getElementById('phoneScreen').classList.remove('hidden');
-            document.getElementById('otpScreen').classList.remove('active');
-        }
-
-        function moveNext(current, nextId) {
-            current.classList.toggle('filled', current.value.length > 0);
-            if (current.value.length === 1 && nextId) {
-                document.getElementById(nextId).focus();
-            }
-        }
-
-        function checkComplete() {
-            const boxes = document.querySelectorAll('.otp-box');
-            boxes.forEach(b => b.classList.toggle('filled', b.value.length > 0));
-        }
-
-        function startTimer() {
-            let seconds = 30;
-            const el = document.getElementById('timer');
-            const interval = setInterval(() => {
-                seconds--;
-                if (seconds <= 0) {
-                    clearInterval(interval);
-                    el.innerHTML = '<button class="resend-btn" onclick="startTimer()">Resend code</button>';
-                } else {
-                    el.textContent = 'Resend in 0:' + String(seconds).padStart(2, '0');
-                }
-            }, 1000);
-        }
-    </script>
+        }, 1000);
+    }
+</script>
 </body>
 </html>
