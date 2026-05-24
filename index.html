@@ -362,6 +362,35 @@
         }
 
         .home-link { text-decoration: none; display: block; margin-top: 20px; }
+
+        /* ── MOBILE: strip the mock frame, fill the real screen ── */
+        @media (max-width: 500px) {
+            body {
+                padding: 0;
+                align-items: flex-start;
+                background: var(--off-white);
+                display: block;
+            }
+
+            .phone-frame {
+                width: 100%;
+                min-height: 100dvh;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+            }
+
+            /* hide the fake iOS status bar — the real one is already there */
+            .status-bar { display: none; }
+
+            .top-header {
+                padding: 20px 24px 0;
+            }
+
+            .screen {
+                padding: 24px 24px 48px;
+            }
+        }
     </style>
 </head>
 <body>

@@ -843,6 +843,38 @@
 
         .spacer { flex: 1; min-height: 12px; }
         .home-link { text-decoration: none; display: block; }
+
+        /* ── MOBILE: strip the mock frame, fill the real screen ── */
+        @media (max-width: 500px) {
+            body {
+                padding: 0;
+                align-items: flex-start;
+                background: var(--off-white);
+                display: block;
+            }
+
+            .phone-frame {
+                width: 100%;
+                min-height: 100dvh;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+            }
+
+            .status-bar { display: none; }
+
+            .top-header {
+                padding: 20px 24px 0;
+            }
+
+            .progress-track {
+                padding: 14px 24px 0;
+            }
+
+            .screen {
+                padding: 22px 24px 48px;
+            }
+        }
     </style>
 </head>
 <body>
