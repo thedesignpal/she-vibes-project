@@ -490,7 +490,7 @@
                 <div class="role-check"></div>
             </button>
 
-            <a href="setup.html" class="home-link">
+            <a href="setup.html?role=samaritan" class="home-link" id="setupLink">
                 <button class="cta-btn" id="continueBtn" disabled>
                     Continue <span class="arrow">→</span>
                 </button>
@@ -549,6 +549,7 @@
         document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
         document.getElementById('continueBtn').disabled = false;
+        document.getElementById('setupLink').href = 'setup.html?role=' + role;
     }
 
     function startTimer() {
