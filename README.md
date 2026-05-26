@@ -1,79 +1,56 @@
 # 🐾 GoodSama
 
-> Making animal rescue faster, safer, and community-driven.
-
-GoodSama is a location-aware mobile app that connects nearby animal welfare volunteers through trusted NGO networks — helping animals in distress without exposing anyone's personal contact details.
+GoodSama dissolves the fear that stops people from helping animals in distress — instantly connecting them to a trusted, nearby network so they go from I can't do this to I'm not doing this alone.
 
 ---
 
-## What it does
+## Who it's for
 
-When someone finds an injured animal, they file a report. GoodSama notifies only the people who are:
+**Good Samaritans** — animal lovers who care but freeze: no contacts, no confidence, no network.
+**NGOs** — welfare organisations that need a reliable, low-noise channel to mobilise trusted helpers fast.
+**The animal** — the reason any of this exists.
 
-1. **Within the same neighbourhood radius** as the report
-2. **Linked to the same NGO** as the person filing it
-
-No broadcast noise. No exposed phone numbers. Just a direct, trusted alert to the right people nearby.
+> MVP: ~20 volunteers in Dehradun, linked to one NGO.
 
 ---
 
-## The three personas
+## Setup
 
-| Persona | Role |
+Static HTML prototype — no server, no build step.
+ 
+**1. Get the files** — clone or download the project folder. Contains `index.html`, `login.html`, `brand.md`, and `README.md`.
+ 
+**2. Run locally** — VS Code + Live Server is the simplest option:
+ 
+```bash
+code --install-extension ritwickdey.LiveServer
+code /path/to/goodsama
+```
+ 
+Click **Go Live** in the bottom-right status bar. Runs at `http://127.0.0.1:5500` and auto-reloads on save. Or use Python: `python3 -m http.server 5500`.
+ 
+**3. Fonts** — DM Sans + DM Serif Display load via Google Fonts CDN. An internet connection is needed for them to render; they degrade gracefully without one.
+ 
+---
+
+## Tech Stack
+
+**Frontend:** Plain HTML, CSS, vanilla JS — no framework, no build step.
+
+**Backend (planned):** Firebase end-to-end.
+
+| Service | Role |
 |---|---|
-| 🐕 **The Animal** | Street dogs, cats, and wildlife who need help — the reason the app exists |
-| 💛 **The Good Samaritan** | Empathetic animal lovers who want to help but lack time, resources, or confidence |
-| 🏡 **The NGO** | Welfare organisations with expertise, shelter, and the ability to coordinate response |
+| Firebase Auth | Phone number OTP |
+| Firestore | Users, reports, NGO links, notifications |
+| Cloud Functions | Matching engine — filters by NGO + radius + active status |
+| Cloud Storage | Report photos |
+| FCM | Push notifications to volunteers |
 
 ---
 
-## Key design decisions
+## What's Next
 
-- **Privacy by design** — no personal contact details shared between users
-- **Two-way NGO link** — both the user and NGO must accept the connection
-- **Active/inactive state** — alerts only reach people physically positioned to help
-- **One-on-one feel** — reduces diffusion of responsibility vs. broadcast group messages
+**Screens:** `setup.html` (radius registration + NGO link request) → `home.html` (dashboard for Volunteer, NGO, Admin)
 
----
-
-## Brand
-
-- **Palette:** Action Orange `#E8610A` · Deep Charcoal `#1A1A1A` · Warm Cream `#F0EDE8`
-- **Type:** DM Serif Display (headlines) · DM Sans (UI)
-- **Tone:** Urgent but warm. Direct. Community-rooted. Action-oriented.
-
-See [`brand.md`](brand.md) for full guidelines.
-
----
-
-## Files
-
-| File | Status | Description |
-|---|---|---|
-| `index.html` | Built | Desktop landing page |
-| `login.html` | Built | Mobile login — phone, OTP, role selection |
-| `setup.html` | Next | Radius zone registration |
-| `home.html` | Next | Dashboard |
-
----
-
-## Build plan
-
-4-week prototype (~28 hours total, 1 hr/day).
-
-| Week | Focus |
-|---|---|
-| 1 | Auth & location — phone login, radius zone, active/inactive state |
-| 2 | Report & notify — animal report form, notification + accept/decline flow |
-| 3 | NGO linking — two-way link request, user profile, settings |
-| 4 | Polish & test — visual refinement, user testing with 3–5 real people |
-
----
-
-## MVP scope
-
-~20 self-selected helpers in Dehradun, linked to one NGO. People already doing this work — the app makes them faster, safer, and more reachable.
-
----
-
-*GoodSama · May 2026*
+**Phase 2:** In-app rescue guidance · Anonymous calling · Post-resolution feedback · Case relay
